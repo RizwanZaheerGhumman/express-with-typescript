@@ -1,6 +1,9 @@
-import bcrypt from 'bcrypt';
+// src/services/seed.service.ts
 
-export const userSeed = [
+import { getRepository } from 'typeorm';
+import bcrypt from 'bcrypt';
+import { User } from '../entities/user/user.entity';
+const userSeed = [
   {
     email: 'admin@gmail.com',
     password: bcrypt.hashSync('password', 10),
@@ -62,3 +65,11 @@ export const userSeed = [
     lastName: 'Mann',
   },
 ];
+export class SeedService {
+  public async seedUsers() {
+    const userRepository = getRepository(User);
+
+    await userRepository.save(userSeed);
+    console.log('Users have been seeded.');
+  }
+}
