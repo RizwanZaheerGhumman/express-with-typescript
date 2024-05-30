@@ -16,7 +16,7 @@ router.get(
 
 router.put(
   '/',
-  schemaValidator(userSchema.updateMe),
+  // schemaValidator(userSchema.updateMe),
   userController.updateMe,
 );
 

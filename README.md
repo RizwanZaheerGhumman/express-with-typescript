@@ -1,18 +1,17 @@
 # NodeJS Sample
-#### ExpressJS, Typescript, TypeORM, MySQL
+#### ExpressJS, Typescript, TypeORM, Postgres
 
 ## 1. Running project
 ### Stable environment
 
-1. Node version: ```14.0.0```
-2. Yarn version: ```1.22.4```
-3. NPM version: ```6.14.5```
-4. MySQL version: ```8.0.21```
+1. Node version: ```20.14.0```
+3. NPM version: ```10.7.0```
+4. Postgres version: ```^8.11.5```
 
 #### 1.1. Setup
 1. Install packages
 
-```$ yarn``` or ```$ yarn install```
+```$ npm install```
 
 2. Create .env file in the root folder and update some variables
 ```
@@ -26,4 +25,4 @@ TOKEN_SECRET_KEY=test
 ```
 
 #### 1.2. Running
-```$ yarn dev``` or ```$ npm run dev```
+```$ npm run dev```

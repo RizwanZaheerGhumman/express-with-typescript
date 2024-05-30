@@ -11,13 +11,13 @@ const router = express.Router();
 
 router.post(
   '/register',
-  schemaValidator(userSchema.register),
+  // schemaValidator(userSchema.register),
   userController.create,
 );
 
 router.post(
   '/login',
-  schemaValidator(userSchema.login),
+  // schemaValidator(userSchema.login),
   userController.login,
 );
 

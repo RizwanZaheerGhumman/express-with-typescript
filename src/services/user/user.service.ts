@@ -44,7 +44,6 @@ const login = async (params: ILoginUser) => {
       'user.password',
       'user.firstName',
       'user.lastName',
-      'user.isDeleted',
     ])
     .getOne();
 
@@ -103,31 +102,34 @@ const update = async (params: IUpdateUser) => {
 }
 
 const list = async (params: IUserQueryParams) => {
-  let userRepo = getRepository(User).createQueryBuilder('user');
-  userRepo = userRepo.where('user.isDeleted = :isDeleted', { isDeleted: false });
-
-  if (params.keyword) {
-    userRepo = userRepo.andWhere(
-      '(LOWER(user.firstName) LIKE LOWER(:keyword) OR LOWER(user.lastName) LIKE LOWER(:keyword))',
-      { keyword: `%${params.keyword}%` },
-    );
-  }
-
-  // Pagination
-  const paginationRepo = userRepo;
-  const total = await paginationRepo.getMany();
-  const pagRes = ApiUtility.getPagination(total.length, params.limit, params.page);
-
-  userRepo = userRepo.limit(params.limit).offset(ApiUtility.getOffset(params.limit, params.page));
-  const users = await userRepo.getMany();
-
-  const response = [];
-  if (users && users.length) {
-    for (const item of users) {
-      response.push(ApiUtility.sanitizeUser(item));
+  try {
+    let userRepo = getRepository(User).createQueryBuilder('user');
+    userRepo = userRepo.where('user.isDeleted = :isDeleted', { isDeleted: false });
+    if (params.keyword) {
+      userRepo = userRepo.andWhere(
+        '(LOWER(user.firstName) LIKE LOWER(:keyword) OR LOWER(user.lastName) LIKE LOWER(:keyword))',
+        { keyword: `%${params.keyword}%` },
+      );
     }
+    // Pagination
+    const paginationRepo = userRepo;
+    const total = await paginationRepo.getMany();
+    const pagRes = ApiUtility.getPagination(total.length, params.limit, params.page);
+  
+    userRepo = userRepo.limit(params.limit).offset(ApiUtility.getOffset(params.limit, params.page));
+    const users = await userRepo.getMany();
+  
+    const response = [];
+    if (users && users.length) {
+      for (const item of users) {
+        response.push(ApiUtility.sanitizeUser(item));
+      }
+    }
+    return { response, pagination: pagRes.pagination };
+  } catch (error) {
+    console.log(error);
   }
-  return { response, pagination: pagRes.pagination };
+
 };
 
 const remove = async (params: IDeleteById) => {

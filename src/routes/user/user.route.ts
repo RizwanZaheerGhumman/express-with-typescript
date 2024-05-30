@@ -17,9 +17,21 @@ router.get(
   userController.list,
 );
 
+router.get(
+  '/:id',
+  userController.detail,
+);
+
+router.put(
+  '/:id',
+  // isAdmin(),
+  // schemaValidator(userSchema.updateMe),
+  userController.update,
+);
+
 router.delete(
   '/:id',
-  isAdmin(),
+  // isAdmin(),
   userController.remove,
 );
 

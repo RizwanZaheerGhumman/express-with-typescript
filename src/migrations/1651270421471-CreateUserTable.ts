@@ -48,6 +48,11 @@ export class CreateUserTable1651270421471 implements MigrationInterface {
             length: '255',
             isNullable: false,
           },
+          {
+            name: 'isDeleted',
+            type: 'boolean',
+            default: false,
+          },
         ],
         uniques: [
           {
