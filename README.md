@@ -23,6 +23,16 @@ PORT={your_running_port}
 NODE_ENV=local
 TOKEN_SECRET_KEY=test
 ```
+#### 1.2. Docker
 
-#### 1.2. Running
+1. Run docker compose command which start your postgres server
+
+```$ docker compose up -d```
+
+### 1.3. Seed
+1. Run the command to seed data in database
+
+``` $ npm run seed ```
+
+#### 1.4. Running
 ```$ npm run dev```
